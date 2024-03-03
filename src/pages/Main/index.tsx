@@ -4,6 +4,7 @@ import { getBooks } from '../../api/books';
 import { BookItem } from '../../interfaces/books.interface';
 import { FlexColumn } from '../../components/UI/Flex';
 import BookGridList from '../../components/BookGridList';
+import useDebounce from '../../hooks/useDebounce';
 
 const PageWrapper = styled(FlexColumn)`
   padding: 0 20px;
@@ -24,6 +25,7 @@ const Main = () => {
   const [searchQuery, setSearchQuery] = useState<string>();
   const [books, setBooks] = useState<BookItem[]>([]);
   const [isFetching, setFetching] = useState<boolean>(false);
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
   const fetchBooks = async (query: string) => {
     try {
@@ -46,8 +48,8 @@ const Main = () => {
   };
 
   useEffect(() => {
-    searchQuery && fetchBooks(searchQuery);
-  }, [searchQuery]);
+    debouncedSearchQuery && fetchBooks(debouncedSearchQuery);
+  }, [debouncedSearchQuery]);
 
   return (
     <PageWrapper>
