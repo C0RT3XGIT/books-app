@@ -5,6 +5,7 @@ export interface BookItem {
     authors: string[];
     publishedDate: string;
     description: string;
+    subtitle: string;
     imageLinks: {
       smallThumbnail: string;
       thumbnail: string;
@@ -23,3 +24,5 @@ export interface GetBooksResponse {
   kind: string;
   totalItems: number;
 }
+
+export type GetBookDetailsResponse = BookItem;

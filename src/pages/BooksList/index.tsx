@@ -5,10 +5,8 @@ import { BookItem } from '../../interfaces/books.interface';
 import { FlexColumn } from '../../components/UI/Flex';
 import BookGridList from '../../components/BookGridList';
 import useDebounce from '../../hooks/useDebounce';
-
-const PageWrapper = styled(FlexColumn)`
-  padding: 0 20px;
-`;
+import { useNavigate } from 'react-router-dom';
+import { APP_PATHS } from '../../constants/appPaths';
 
 const SearchInput = styled.input`
   padding: 10px;
@@ -21,11 +19,12 @@ const Header = styled(FlexColumn)`
   margin-bottom: 20px;
 `;
 
-const Main = () => {
+const BooksList = () => {
   const [searchQuery, setSearchQuery] = useState<string>();
   const [books, setBooks] = useState<BookItem[]>([]);
   const [isFetching, setFetching] = useState<boolean>(false);
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
+  const navigate = useNavigate();
 
   const fetchBooks = async (query: string) => {
     try {
@@ -47,19 +46,26 @@ const Main = () => {
     setSearchQuery(event.target.value);
   };
 
+  const handleBookClick = (book: BookItem) => {
+    navigate(`${APP_PATHS.BOOKS}/${book.id}`);
+  };
   useEffect(() => {
     debouncedSearchQuery && fetchBooks(debouncedSearchQuery);
   }, [debouncedSearchQuery]);
 
   return (
-    <PageWrapper>
+    <FlexColumn>
       <Header>
         <h1>Search </h1>
         <SearchInput onChange={handleSearchQueryChange} />
       </Header>
-      {isFetching ? <h2>Loading books...</h2> : <BookGridList books={books} />}
-    </PageWrapper>
+      {isFetching ? (
+        <h2>Loading books...</h2>
+      ) : (
+        <BookGridList books={books} onCardClick={handleBookClick} />
+      )}
+    </FlexColumn>
   );
 };
 
-export default Main;
+export default BooksList;

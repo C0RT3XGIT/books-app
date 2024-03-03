@@ -1,5 +1,5 @@
 export const APP_PATHS = {
-  HOME: '/',
   BOOKS: '/books',
-  FAVORITES: '/favorites',
+  BOOK_DETAILED: '/books/:id',
+  FAVORITES: '/books/favorites',
 };

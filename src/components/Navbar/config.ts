@@ -2,8 +2,8 @@ import { APP_PATHS } from '../../constants/appPaths';
 
 export const NAV_ITEMS = [
   {
-    label: 'Home',
-    path: APP_PATHS.HOME,
+    label: 'Search Books',
+    path: APP_PATHS.BOOKS,
   },
   {
     label: 'Favorites',
