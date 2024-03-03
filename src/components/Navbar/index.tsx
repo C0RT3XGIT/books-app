@@ -4,14 +4,13 @@ import { NavLink } from 'react-router-dom';
 import { NAV_ITEMS } from './config';
 
 const AppHeader = styled.header`
-  background-color: #282c34;
-  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
   padding: 0 20px;
+  background-color: #282c34;
 `;
 
 const Nav = styled.nav`
