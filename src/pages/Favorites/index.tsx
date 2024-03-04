@@ -6,6 +6,7 @@ import { getBookDetails } from '../../api/books';
 import BookGridList from '../../components/BookGridList';
 import { useNavigate } from 'react-router-dom';
 import { APP_PATHS } from '../../constants/appPaths';
+import { FlexColumn } from '../../components/UI/Flex';
 
 const Favorites = () => {
   const navigate = useNavigate();
@@ -41,14 +42,13 @@ const Favorites = () => {
     favoriteBooks && fetchFavoriteBooks();
   }, [favoriteBooks]);
   return (
-    <div>
-      <h1>Favorites</h1>
+    <FlexColumn>
       {isFetching ? (
         <h2>Loading favorite books...</h2>
       ) : (
         <BookGridList books={books} onCardClick={handleCardClick} />
       )}
-    </div>
+    </FlexColumn>
   );
 };
 

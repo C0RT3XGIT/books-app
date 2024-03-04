@@ -58,7 +58,10 @@ const BooksList = () => {
     <FlexColumn>
       <Header>
         <h1>Search </h1>
-        <SearchInput onChange={handleSearchQueryChange} />
+        <SearchInput
+          onChange={handleSearchQueryChange}
+          placeholder='Type book name...'
+        />
       </Header>
       {isFetching ? (
         <h2>Loading books...</h2>

@@ -1,16 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { NAV_ITEMS } from './config';
+import { APP_PATHS } from '../../constants/appPaths';
 
 const AppHeader = styled.header`
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
   padding: 0 20px;
   background-color: #282c34;
+`;
+
+const CapitalizedHeader = styled.h1`
+  text-transform: capitalize;
+  text-wrap: nowrap;
 `;
 
 const Nav = styled.nav`
@@ -36,8 +41,17 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 const Navbar = () => {
+  const { pathname } = useLocation();
+  const { id } = useParams();
+
+  const getPageName = (path: string) => {
+    const segments = path.split('/');
+    const bookDetailedPage = pathname === `${APP_PATHS.BOOKS}/${id}`;
+    return bookDetailedPage ? 'Book details' : segments[segments.length - 1];
+  };
   return (
     <AppHeader>
+      <CapitalizedHeader>{getPageName(pathname)}</CapitalizedHeader>
       <Nav>
         {NAV_ITEMS.map((item) => (
           <StyledNavLink key={item.path} to={item.path}>
