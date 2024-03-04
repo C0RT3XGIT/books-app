@@ -4,7 +4,7 @@ import { getBookDetails } from '../../api/books';
 import { BookItem } from '../../interfaces/books.interface';
 import { FlexColumn } from '../../components/UI/Flex';
 import BookCard from '../../components/BookCard';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import { useLocalStorage } from '../../hooks';
 import { LocalStorageKeys } from '../../constants/localStorageKeys';
 
 const DetailedView = () => {

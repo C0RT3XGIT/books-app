@@ -4,7 +4,7 @@ import { getBooks } from '../../api/books';
 import { BookItem } from '../../interfaces/books.interface';
 import { FlexColumn } from '../../components/UI/Flex';
 import BookGridList from '../../components/BookGridList';
-import useDebounce from '../../hooks/useDebounce';
+import { useDebounce } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { APP_PATHS } from '../../constants/appPaths';
 

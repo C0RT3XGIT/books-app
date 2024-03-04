@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import { useLocalStorage } from '../../hooks';
 import { LocalStorageKeys } from '../../constants/localStorageKeys';
 import { BookItem } from '../../interfaces/books.interface';
 import { getBookDetails } from '../../api/books';
