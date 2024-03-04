@@ -21,9 +21,7 @@ const BookGridList = ({ books, onCardClick }: BookGridListProps) => {
       {books?.length > 0 ? (
         <CardsContainer>
           {books.map((book) => (
-            <Flex key={book.id} onClick={() => onCardClick(book)}>
-              <BookCard book={book} />
-            </Flex>
+            <BookCard book={book} key={book.id} onCardClick={onCardClick} />
           ))}
         </CardsContainer>
       ) : (

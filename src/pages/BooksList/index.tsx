@@ -46,9 +46,10 @@ const BooksList = () => {
     setSearchQuery(event.target.value);
   };
 
-  const handleBookClick = (book: BookItem) => {
+  const handleCardClick = (book: BookItem) => {
     navigate(`${APP_PATHS.BOOKS}/${book.id}`);
   };
+
   useEffect(() => {
     debouncedSearchQuery && fetchBooks(debouncedSearchQuery);
   }, [debouncedSearchQuery]);
@@ -62,7 +63,7 @@ const BooksList = () => {
       {isFetching ? (
         <h2>Loading books...</h2>
       ) : (
-        <BookGridList books={books} onCardClick={handleBookClick} />
+        <BookGridList books={books} onCardClick={handleCardClick} />
       )}
     </FlexColumn>
   );

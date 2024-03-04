@@ -4,11 +4,17 @@ import { getBookDetails } from '../../api/books';
 import { BookItem } from '../../interfaces/books.interface';
 import { FlexColumn } from '../../components/UI/Flex';
 import BookCard from '../../components/BookCard';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import { LocalStorageKeys } from '../../constants/localStorageKeys';
 
 const DetailedView = () => {
   const { id } = useParams();
   const [isFetching, setFetching] = useState(false);
   const [bookDetails, setBookDetails] = useState<BookItem>();
+  const [favoriteBooks, setFavoriteBooks] = useLocalStorage<string[]>(
+    LocalStorageKeys.FAVORITE_BOOKS,
+    [],
+  );
 
   const fetchBookDetails = async (volumeId: string) => {
     try {
@@ -26,6 +32,29 @@ const DetailedView = () => {
     }
   };
 
+  const isBookInFavorites = (book: BookItem) =>
+    favoriteBooks?.includes(book.id);
+
+  const addBookToFavorites = (book: BookItem) => {
+    const updatedFavoriteBooks = [...favoriteBooks, book.id];
+    setFavoriteBooks(updatedFavoriteBooks);
+  };
+
+  const removeBookFromFavorites = (book: BookItem) => {
+    const updatedFavoriteBooks = favoriteBooks.filter(
+      (id: string) => id !== book.id,
+    );
+    setFavoriteBooks(updatedFavoriteBooks);
+  };
+
+  const handleFavoriteClick = (book: BookItem) => {
+    if (favoriteBooks?.includes(book.id)) {
+      removeBookFromFavorites(book);
+    } else {
+      addBookToFavorites(book);
+    }
+  };
+
   useEffect(() => {
     id && fetchBookDetails(id);
   }, [id]);
@@ -36,7 +65,12 @@ const DetailedView = () => {
   return (
     <FlexColumn>
       {bookDetails ? (
-        <BookCard book={bookDetails} detailed />
+        <BookCard
+          book={bookDetails}
+          detailed
+          onFavoriteClick={handleFavoriteClick}
+          isFavorite={isBookInFavorites(bookDetails)}
+        />
       ) : (
         <h2>Unable to get details for provided book id</h2>
       )}
