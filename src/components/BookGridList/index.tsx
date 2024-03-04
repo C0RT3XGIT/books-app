@@ -1,7 +1,7 @@
 import BookCard from '../BookCard';
 import React from 'react';
 import styled from 'styled-components';
-import { Flex, FlexColumn } from '../UI/Flex';
+import { FlexColumn } from '../UI/Flex';
 import { BookItem } from '../../interfaces/books.interface';
 
 interface BookGridListProps {
@@ -9,10 +9,15 @@ interface BookGridListProps {
   onCardClick: (book: BookItem) => void;
 }
 
-const CardsContainer = styled(Flex)`
-  flex-wrap: wrap;
-  justify-content: space-between;
+const CardsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 20px;
+
+  @media (min-width: 1680px) {
+    grid-template-columns: repeat(4, minmax(350px, 1fr));
+    gap: 20px;
+  }
 `;
 
 const BookGridList = ({ books, onCardClick }: BookGridListProps) => {
