@@ -8,12 +8,11 @@ Please make sure to create a `.env` file in the root of the project with the fol
 
 ```
 REACT_APP_API_URL=GOOGLE_BOOKS_API_URL
-REACT_APP_API_KEY=YOUR_GOOGLE_BOOKS_API_KEY
 ```
 
 **Note:**
 
-There is a sample `.env.sample` file in the root of the project, you can rename it to `.env` and enter the `GOOGLE_BOOKS_API_URL` and `YOUR_GOOGLE_BOOKS_API_KEY` values.
+There is a sample `.env.sample` file in the root of the project, you can rename it to `.env` and replace the `GOOGLE_BOOKS_API_URL` with the actual Google Books API URL (if it's needed).
 
 ## Available Scripts
 
