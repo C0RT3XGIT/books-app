@@ -5,8 +5,9 @@ import { BookItem } from '../../interfaces/books.interface';
 import { FlexColumn } from '../../components/UI/Flex';
 import BookGridList from '../../components/BookGridList';
 import { useDebounce } from '../../hooks';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { APP_PATHS } from '../../constants/appPaths';
+import { QueryParams } from '../../constants/queryParams';
 
 const SearchInput = styled.input`
   padding: 10px;
@@ -20,11 +21,16 @@ const Header = styled(FlexColumn)`
 `;
 
 const BooksList = () => {
-  const [searchQuery, setSearchQuery] = useState<string>();
+  const navigate = useNavigate();
   const [books, setBooks] = useState<BookItem[]>([]);
   const [isFetching, setFetching] = useState<boolean>(false);
+
+  const [currentQueryParameters, setSearchParams] = useSearchParams();
+  const searchQueryParam = currentQueryParameters.get(QueryParams.SEARCH);
+  const [searchQuery, setSearchQuery] = useState<string>(
+    searchQueryParam || '',
+  );
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
-  const navigate = useNavigate();
 
   const fetchBooks = async (query: string) => {
     try {
@@ -43,6 +49,10 @@ const BooksList = () => {
   const handleSearchQueryChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
+    const value = event.target.value;
+    const newSearchParams = new URLSearchParams(currentQueryParameters);
+    newSearchParams.set(QueryParams.SEARCH, value);
+    setSearchParams(newSearchParams);
     setSearchQuery(event.target.value);
   };
 
@@ -59,6 +69,7 @@ const BooksList = () => {
       <Header>
         <h1>Search </h1>
         <SearchInput
+          value={searchQuery}
           onChange={handleSearchQueryChange}
           placeholder='Type book name...'
         />
